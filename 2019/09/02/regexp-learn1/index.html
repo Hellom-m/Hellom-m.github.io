@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>正则表达式 · Hellom&#39;s Studio</title>
+    <title>巧记正则表达式 · Hellom&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Hellom&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">正则表达式</a>
+                <a href="#" class="post-name">巧记正则表达式</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:60vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            正则表达式
+            巧记正则表达式
             <!-- 404 -->
             
         </h1>
@@ -272,7 +272,7 @@ height:60vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">0</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.7k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,13 +401,410 @@ height:60vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <p><a href="https://regexper.com/" target="_blank" rel="noopener">在线正则表达式工具</a></p>
+<h2 id="RegExp对象"><a href="#RegExp对象" class="headerlink" title="RegExp对象"></a>RegExp对象</h2><p><code>Js</code> 中通过内置 <code>RegExp</code> 对象来支持正则表达式</p>
+<p>通过以下两种来实例化 <code>RegExp</code> 对象：</p>
+<ul>
+<li><p>字面量</p>
+</li>
+<li><p>构造函数</p>
+</li>
+</ul>
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\bis\b/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'He is a boy; This is a dog ; Where is she ?'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'IS'</span>));<span class="comment">// He IS a boy; This IS a dog ; Where IS she ?</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\bis\\b'</span>,<span class="string">'g'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'He is a boy; This is a dog ; Where is she ?'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'IS'</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><ul>
+<li><p><code>g</code>: global 全文搜索 若不添加 匹配到第一个就结束</p>
+</li>
+<li><p><code>i</code>: ignore case 忽略大小写 默认大小写敏感</p>
+</li>
+<li><p><code>m</code>: multiple lines 多行搜索</p>
+</li>
+</ul>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p><code>js</code> 中由两种基本的字符类型组成：</p>
+<ul>
+<li><p>原义文本字符</p>
+</li>
+<li><p>元字符</p>
+</li>
+</ul>
+<p><strong>元字符是在正则表达式中有特殊含义的非字母字符</strong></p>
+<p>例如： <code>*</code>,<code>^</code>,<code>+</code>,<code>?</code>,<code>$</code>,<code>.</code>,<code>|</code>,<code>\</code>,<code>()</code>,<code>{}</code>,<code>[]</code>等</p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>一般情况下 正则表达式一个字符对应字符串的一个字符</p>
+<p>可使用 <code>[]</code> 来构建一个简单的类</p>
+<p>所谓类就是符合某种特征的对象 一个泛指 而不是特指某个字符</p>
+<p>表达式 <code>[abc]</code> 把字符 a 或 b 或 c 归为一类 表达式可匹配这类的字符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/[abc]/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'a1b2c3d4'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// X1X2X3d4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符类取反"><a href="#字符类取反" class="headerlink" title="字符类取反"></a>字符类取反</h3><p>通常使用 元字符 <code>^</code> 来创建一个 <code>反向类/负向类</code></p>
+<p><code>反向类</code> 是指不属于某个类的内容</p>
+<p>表达式 <code>[^abc]</code> 表示不是 a 或 b 或 c 的内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/[^abc]/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'a1b2c3d4'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// aXbXcXXX</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="范围类"><a href="#范围类" class="headerlink" title="范围类"></a>范围类</h2><p>正则表达式还提供了 范围类</p>
+<p>可使用 <code>[a-z]</code> 来连接两个字符来表示  <strong>从 a 到 z 的任意字符</strong> </p>
+<p>这是一个闭区间 包含 a 和 z 本身</p>
+<p>在 <code>[]</code> 组成的类内部是可以连写的 例如： <code>[a-zA-Z]</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/[a-zA-Z]/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'a1b2c3d4QQASDASDAS'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// X1X2X3X4XXXXXXXXXX</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JS预定义类及边界"><a href="#JS预定义类及边界" class="headerlink" title="JS预定义类及边界"></a>JS预定义类及边界</h2><p>正则表达式提供了 <code>预定义类</code> 来匹配常见的字符类</p>
+<table>
+<thead>
+<tr>
+<th align="left">字符</th>
+<th align="center">等价类</th>
+<th align="right">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.</td>
+<td align="center">[^\r\n]</td>
+<td align="right">除了回车符和换行符之外的所有字符</td>
+</tr>
+<tr>
+<td align="left">\d</td>
+<td align="center">[0-9]</td>
+<td align="right">数字字符</td>
+</tr>
+<tr>
+<td align="left">\D</td>
+<td align="center">[^0-9]</td>
+<td align="right">非数字字符</td>
+</tr>
+<tr>
+<td align="left">\s</td>
+<td align="center">[\t\n\x0B\f\r]</td>
+<td align="right">空白符</td>
+</tr>
+<tr>
+<td align="left">\S</td>
+<td align="center">[^\t\n\x0B\f\r]</td>
+<td align="right">非空白符</td>
+</tr>
+<tr>
+<td align="left">\w</td>
+<td align="center">[a-zA-Z_0-9]</td>
+<td align="right">单词字符（字母数字下划线）</td>
+</tr>
+<tr>
+<td align="left">\W</td>
+<td align="center">[^a-zA-Z_0-9]</td>
+<td align="right">非单词字符</td>
+</tr>
+</tbody></table>
+<p><code>d</code>: digit   </p>
+<p><code>s</code>: space</p>
+<p><code>w</code>: word</p>
+<p>大写字母表取反</p>
+<p>例子：匹配一个 ab + 数字 + 任意字符 的字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/ab[0-9][^\r\n]/</span>;</span><br><span class="line"></span><br><span class="line">等价于 写起来也简单许多</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/ab\d./</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="边界"><a href="#边界" class="headerlink" title="边界"></a>边界</h2><p>正则表达式还提供了 常用的边界匹配字符</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>从xxx开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>从xxx结束</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>单词边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">e.g</span><br><span class="line"></span><br><span class="line"><span class="comment">// 匹配单词边界</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/is/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'This is a boy'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// ThX X a boy  =&gt; error</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\bis\b/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// This X a boy  =&gt; right</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">e.g</span><br><span class="line"></span><br><span class="line"><span class="comment">// 匹配所有以@开头 并替换为 X</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/^@\d/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`@123</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>));  =&gt; error</span><br><span class="line"><span class="comment">// X23</span></span><br><span class="line"><span class="comment">// @456</span></span><br><span class="line"><span class="comment">// @789</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/^@\d/gm</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>));  =&gt; right</span><br><span class="line"><span class="comment">// X23</span></span><br><span class="line"><span class="comment">// X56</span></span><br><span class="line"><span class="comment">// X89</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>?</td>
+<td>出现 0 次或者一次（最多出现一次）</td>
+</tr>
+<tr>
+<td>+</td>
+<td>出现一次或多次 （至少一次）</td>
+</tr>
+<tr>
+<td>*</td>
+<td>出现 0 次或者多次 （任意次）</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>出现 n 次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>出现 n 到 m 次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>至少出现 n 次</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\d&#123;3&#125;/</span>; =&gt; 匹配三次数字</span><br></pre></td></tr></table></figure>
+
+<h2 id="贪婪模式与非贪婪模式"><a href="#贪婪模式与非贪婪模式" class="headerlink" title="贪婪模式与非贪婪模式"></a>贪婪模式与非贪婪模式</h2><h3 id="贪婪模式"><a href="#贪婪模式" class="headerlink" title="贪婪模式"></a>贪婪模式</h3><ul>
+<li>就是在匹配成功的前提下 尽可能多的去匹配</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\d&#123;3,6&#125;/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`12345678`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// X78</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="非贪婪模式"><a href="#非贪婪模式" class="headerlink" title="非贪婪模式"></a>非贪婪模式</h3><ul>
+<li><p>就是在匹配成功的前提下 尽可能少的去匹配</p>
+</li>
+<li><p>非贪婪模式 可使用 <code>?</code> 来表示</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\d&#123;3,6&#125;?/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`12345678`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// XX78</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><ul>
+<li>可使用 <code>()</code> 来分组 使量词作用于分组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配字母与数字组合出现三次 替换为 X</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/(\w\d)&#123;3&#125;/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`a1b2c3d4`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// Xd4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="或"><a href="#或" class="headerlink" title="或"></a>或</h3><ul>
+<li>可使用 <code>|</code> 来匹配其中一个</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/boy|girl/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`boygirl`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// XX</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 分组 或</span></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/b(oy|gi)rl/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`boyrlbgirl`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// XX</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h3><ul>
+<li>如果出现多个分组 可使用 <code>$</code> 来表示第几个分组</li>
+</ul>
+<p>实例： 2019-09-08  替换成  09/08/2019</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`2019-09-08`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'$2/$3/$1'</span>)); <span class="comment">// 09/08/2019</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="忽略分组"><a href="#忽略分组" class="headerlink" title="忽略分组"></a>忽略分组</h3><ul>
+<li>不希望捕获某些分组 只需要在分组内添加 <code>?:</code> 即可忽略分组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/(?:boy).(ok)/</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前瞻"><a href="#前瞻" class="headerlink" title="前瞻"></a>前瞻</h2><ul>
+<li><p>正则表达式从文本头部向文本尾部开始解析，文本尾部方向 为 “前”</p>
+</li>
+<li><p><strong>前瞻</strong> 就是在正则表达式匹配规则的时候，向前检查是否符合断言（断言就是前面语法的一部分）</p>
+</li>
+<li><p><strong>后顾/后瞻</strong> 方向相反</p>
+</li>
+<li><p>js 不支持 后瞻</p>
+</li>
+<li><p>符合和不符合特定的断言 称为 <strong>肯定/正向</strong>匹配 和 <strong>否定/负向</strong>匹配</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>正则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正向前瞻</td>
+<td>exp(?= assert)</td>
+</tr>
+<tr>
+<td>负向前瞻</td>
+<td>exp(?! assert)</td>
+</tr>
+<tr>
+<td>正向后瞻</td>
+<td>js不支持</td>
+</tr>
+<tr>
+<td>负向后瞻</td>
+<td>js不支持</td>
+</tr>
+</tbody></table>
+<p>正向前瞻</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\w(?=\d)/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`a2*34v8`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// X2*X4X8</span></span><br></pre></td></tr></table></figure>
+
+<p>反向前瞻</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\w(?!\d)/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`a2*34v8`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.replace(reg,<span class="string">'X'</span>)); <span class="comment">// aX*3XXX</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h2><p><strong>global：</strong> 是否全文搜索，默认false</p>
+<p><strong>ignore case：</strong> 是否大小写敏感，默认false</p>
+<p><strong>muliline：</strong> 多行搜索，默认false</p>
+<p><strong>lastIndex：</strong> 是当前正则表达式匹配内容的最后一个字符的下一个位置</p>
+<p><strong>source：</strong> 正则表达式的文本字符串</p>
+<h3 id="test-方法"><a href="#test-方法" class="headerlink" title="test 方法"></a>test 方法</h3><p><strong>RegExp.prototype.test(str)</strong></p>
+<p>以下的事例 出现了这样的情况</p>
+<p>多打印几次后 从原来的 true 变成了 false</p>
+<p>这是为什么呢？</p>
+<p>这是因为 <code>lastIndex</code> 这个属性</p>
+<p>当它下一次执行的时候 并不是从头开始匹配的</p>
+<p>而是从匹配最后一个字符的下一个位置</p>
+<p>也就是 第一次是匹配到 <code>a</code> 值为 <code>true</code></p>
+<p>第二次匹配的时候 从 <code>a</code> 的下一个位置</p>
+<p>也就是 <code>b</code> 匹配到了 值为 <code>true</code></p>
+<p>第三次 从 <code>b</code> 的下一个位置 匹配</p>
+<p>因而后面 没有可匹配的 所以值为 <code>false</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg1 = <span class="regexp">/\w/</span>;</span><br><span class="line"><span class="keyword">var</span> reg2 = <span class="regexp">/\w/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.test(<span class="string">'ab'</span>)); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg2.test(<span class="string">'ab'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg2.test(<span class="string">'ab'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg2.test(<span class="string">'ab'</span>)); <span class="comment">// false  =&gt; ???</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(reg2.test(<span class="string">'ab'</span>))&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(reg2.lastIndex);  </span><br><span class="line">	<span class="comment">// result:</span></span><br><span class="line">	<span class="comment">// 1</span></span><br><span class="line">	<span class="comment">// 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="exec-方法"><a href="#exec-方法" class="headerlink" title="exec 方法"></a>exec 方法</h3><p><strong>RegExp.prototype.exec(str)</strong></p>
+<ul>
+<li><p>使用正则表达式模式对字符串执行搜索，并将更新全局的 RegExp 对象的属性以反映匹配结果</p>
+</li>
+<li><p>如果没有匹配的文本 则返回 <code>null</code> 否则返回一个结果数组:</p>
+<ul>
+<li><p><code>index</code>： 匹配文本的第一个位置</p>
+</li>
+<li><p><code>input</code>： 用来存放被检索的字符串 <code>string</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="非全局调用"><a href="#非全局调用" class="headerlink" title="非全局调用"></a>非全局调用</h3><ul>
+<li><p>调用非全局的 RegExp 的 exec() 返回一个数组</p>
+</li>
+<li><p>第一个元素是与正则表达式匹配的文本</p>
+</li>
+<li><p>第二个元素是与 RegExpObject 的第一个子表达式相匹配的文本（如果有的话）</p>
+</li>
+<li><p>第三个元素是与 RegExp 对象的第二个子表达式相匹配的文本（如果有的话）(也就是分组)</p>
+</li>
+<li><p>以此类推</p>
+</li>
+</ul>
+<p>以下的实例：</p>
+<p>非全局调用的结果：  <code>0  1  1az2,a,z</code></p>
+<ul>
+<li><p><code>0</code>: lastIndex 的值</p>
+</li>
+<li><p><code>1</code>: 匹配文本的第一个位置</p>
+</li>
+<li><p><code>1az2</code>: 被检索到的字符串</p>
+</li>
+<li><p><code>a</code>: 第一个分组的值 （\w）</p>
+</li>
+<li><p><code>z</code>: 第二个分组的值 （\w）</p>
+</li>
+</ul>
+<p>全局调用的结果：</p>
+<p><code>5      1  1az2,a,z</code></p>
+<p><code>10 6  3cy4,c,y</code>  同理</p>
+<ul>
+<li><p><code>5</code>: 匹配最后一个字符的下一个位置（下标值） 也就是 <code>b</code> </p>
+</li>
+<li><p><code>1</code>: 匹配文本的第一个位置（下标值）</p>
+</li>
+<li><p><code>1az2</code>: 被检索到的字符串</p>
+</li>
+<li><p><code>a</code>: 第一个分组的值 <strong>（\w）</strong></p>
+</li>
+<li><p><code>z</code>: 第二个分组的值 <strong>（\w）</strong></p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg3 = <span class="regexp">/\d(\w)(\w)\d/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg4 = <span class="regexp">/\d(\w)(\w)\d/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'$1az2b3cy4d5e'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> res = reg3.exec(str);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 非全局调用 </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;reg3.lastIndex&#125;</span> \t <span class="subst">$&#123;res.index&#125;</span>  <span class="subst">$&#123;res.toString()&#125;</span>`</span>); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局匹配调用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(res = reg4.exec(str))&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;reg4.lastIndex&#125;</span> \t <span class="subst">$&#123;res.index&#125;</span>  <span class="subst">$&#123;res.toString()&#125;</span>`</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串对象方法"><a href="#字符串对象方法" class="headerlink" title="字符串对象方法"></a>字符串对象方法</h2><h3 id="search-方法"><a href="#search-方法" class="headerlink" title="search 方法"></a>search 方法</h3><ul>
+<li><p>用于检索字符串中指定的子字符串 或者检索与正则表达式匹配的子字符串</p>
+</li>
+<li><p>返回 第一个匹配结果 index，查找不到则返回 -1</p>
+</li>
+<li><p>search 方法 不全局匹配 忽略 <strong>g</strong> 标志，总是从字符串的开始进行检索</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'1az2b3cy4d5e'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.search(<span class="number">1</span>)); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="match-方法"><a href="#match-方法" class="headerlink" title="match 方法"></a>match 方法</h3><ul>
+<li><p>用于检索字符串，以找到一个或者多个于regexp匹配的文本</p>
+</li>
+<li><p>有无 <strong>g</strong> 标志 差距很大</p>
+</li>
+</ul>
+<p>非全局调用：</p>
+<ul>
+<li><p>match 方法只能在字符串中执行一次</p>
+</li>
+<li><p>如果没有找到匹配的结果 则返回 null</p>
+</li>
+<li><p>否则返回一个数组，其中存放了与它相匹配的文本信息</p>
+</li>
+<li><p>返回数组的一个元素存放的是匹配的文本，而其余的元素存放的是与正则表达式的子表达式匹配的文本</p>
+</li>
+<li><p>除了常规的数组元素，返回的数组还含有2个对象属性：</p>
+<ul>
+<li><p>index 声明匹配文本的起始字符在字符串的位置</p>
+</li>
+<li><p>input 声明对 stringObject 的引用</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg3 = <span class="regexp">/\d(\w)\d/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg4 = <span class="regexp">/\d(\w)\d/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'$1a2b3cy4d5e'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> res = str.match(reg4);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 非全局调用 </span></span><br><span class="line"><span class="built_in">console</span>.log(res);  <span class="comment">//  [ '1a2', 'a' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` <span class="subst">$&#123;res.index&#125;</span>  \t  <span class="subst">$&#123;reg3.lastIndex&#125;</span>`</span>); <span class="comment">//  1  0</span></span><br></pre></td></tr></table></figure>
+
+<p>全局调用：</p>
+<ul>
+<li><p>具有 g 标志的 match 方法将执行全局检索 找到字符串中的所有匹配子字符串</p>
+</li>
+<li><p>没有找到匹配的子字符串，则返回 null</p>
+</li>
+<li><p>如果找到了一个或者多个匹配子串，则返回一个数组</p>
+</li>
+<li><p>数组中存放的是字符串中所有匹配子串，而且也没有 index 或者 input 属性</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg3 = <span class="regexp">/\d(\w)\d/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg4 = <span class="regexp">/\d(\w)\d/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'$1a2b3cy4d5e'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> res = str.match(reg4);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局调用</span></span><br><span class="line"><span class="built_in">console</span>.log(res);  <span class="comment">// [ '1a2', '4d5' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` <span class="subst">$&#123;res.index&#125;</span>  \t  <span class="subst">$&#123;reg4.lastIndex&#125;</span>`</span>);  <span class="comment">//  undefined  0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="split-方法"><a href="#split-方法" class="headerlink" title="split 方法"></a>split 方法</h3><ul>
+<li>把字符串分割成字符数组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="string">'a,b,c,d'</span>.split(<span class="string">','</span>); <span class="comment">// ['a','b','c','d']</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在一些比较复杂的分割情况下 可以使用正则表达式解决</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="string">'a1b2c3d4'</span>.split(<span class="regexp">/\d/</span>); <span class="comment">// ['a','b','c','d']</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="replace-方法"><a href="#replace-方法" class="headerlink" title="replace 方法"></a>replace 方法</h3><p>三种传值的方法:</p>
+<ul>
+<li><strong>String.prototype.replace(str, replaceStr);</strong></li>
+<li><strong>String.prototype.replace(reg, replaceStr);</strong></li>
+<li><strong>String.prototype.replace(reg, function);</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>.prototype.replace(str,replaceStr);</span><br><span class="line"><span class="string">'a1b'</span>.replace(<span class="string">'1'</span>,<span class="number">2</span>);  <span class="comment">// 'a2b'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>.prototype.replace(reg,replaceStr);</span><br><span class="line"><span class="string">'a1b1c1'</span>.replace(<span class="regexp">/1/g</span>, <span class="number">2</span>);  <span class="comment">// 'a2b2c2'</span></span><br></pre></td></tr></table></figure>
+
+<p>function会在每次匹配替换的时候调用，有四个参数：</p>
+<ul>
+<li><p>匹配字符串</p>
+</li>
+<li><p>正则表达式分组内容，没有分组则没有该参数(有几个分组 就有几个分组参数)</p>
+</li>
+<li><p>匹配项在字符串的 index</p>
+</li>
+<li><p>原字符串 </p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">e.g.</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 要得到替换成以下的内容</span></span><br><span class="line"><span class="string">'a1b2c3d4'</span>  =&gt;  <span class="string">'a2b3c4d5'</span></span><br><span class="line"></span><br><span class="line"><span class="string">'a1b2c3d4'</span>.replace(<span class="regexp">/\d/g</span>,<span class="function"><span class="keyword">function</span>(<span class="params">match,index,origin</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parseInt</span>(match) + <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 匹配 （数字 字符 数字）后 把中间的字符去掉</span></span><br><span class="line"></span><br><span class="line"><span class="string">'a1b2c3d4e5'</span>.replace(<span class="regexp">/(\d)(\w)(\d)/g</span>,<span class="function"><span class="keyword">function</span>(<span class="params">match,index,group1,group2,group3,origin</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> group2 + group3;  <span class="comment">//  'a12c34e5'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/09/04/scroll-q1/" title= "关于 scrollTop offsetTop 等位置属性">
+                    <div class="nextTitle">关于 scrollTop offsetTop 等位置属性</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -534,7 +931,7 @@ top:60vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RegExp对象"><span class="toc-number">1.</span> <span class="toc-text">RegExp对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字面量"><span class="toc-number">1.1.</span> <span class="toc-text">字面量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">1.2.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符"><span class="toc-number">1.3.</span> <span class="toc-text">修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元字符"><span class="toc-number">2.</span> <span class="toc-text">元字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符类"><span class="toc-number">3.</span> <span class="toc-text">字符类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符类取反"><span class="toc-number">3.1.</span> <span class="toc-text">字符类取反</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#范围类"><span class="toc-number">4.</span> <span class="toc-text">范围类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS预定义类及边界"><span class="toc-number">5.</span> <span class="toc-text">JS预定义类及边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#边界"><span class="toc-number">6.</span> <span class="toc-text">边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#量词"><span class="toc-number">7.</span> <span class="toc-text">量词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贪婪模式与非贪婪模式"><span class="toc-number">8.</span> <span class="toc-text">贪婪模式与非贪婪模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#贪婪模式"><span class="toc-number">8.1.</span> <span class="toc-text">贪婪模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非贪婪模式"><span class="toc-number">8.2.</span> <span class="toc-text">非贪婪模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分组"><span class="toc-number">9.</span> <span class="toc-text">分组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#或"><span class="toc-number">9.1.</span> <span class="toc-text">或</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向引用"><span class="toc-number">9.2.</span> <span class="toc-text">反向引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#忽略分组"><span class="toc-number">9.3.</span> <span class="toc-text">忽略分组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前瞻"><span class="toc-number">10.</span> <span class="toc-text">前瞻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象属性"><span class="toc-number">11.</span> <span class="toc-text">对象属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#test-方法"><span class="toc-number">11.1.</span> <span class="toc-text">test 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exec-方法"><span class="toc-number">11.2.</span> <span class="toc-text">exec 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非全局调用"><span class="toc-number">11.3.</span> <span class="toc-text">非全局调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串对象方法"><span class="toc-number">12.</span> <span class="toc-text">字符串对象方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#search-方法"><span class="toc-number">12.1.</span> <span class="toc-text">search 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#match-方法"><span class="toc-number">12.2.</span> <span class="toc-text">match 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#split-方法"><span class="toc-number">12.3.</span> <span class="toc-text">split 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#replace-方法"><span class="toc-number">12.4.</span> <span class="toc-text">replace 方法</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -911,9 +1308,89 @@ top:60vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 28
+        Total : 30
         </div>
         <!-- search  -->
         
@@ -929,7 +1406,17 @@ top:60vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/regexp-learn1/" >正则表达式</a>
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/css-learn/" >玩转css3新属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2019/09/04/scroll-q1/" >关于 scrollTop offsetTop 等位置属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/regexp-learn1/" >巧记正则表达式</a>
         </li>
     
     
@@ -974,17 +1461,7 @@ top:60vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn7/" >Dart 学习之枚举和类型</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn6/" >Dart 学习之面向对象编程 2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
         </li>
     
     
@@ -994,7 +1471,12 @@ top:60vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2019/07/15/dart-learn3/" >基本数据类型 float 和 double 的区别</a>
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn7/" >Dart 学习之枚举和类型</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
         </li>
     
     
@@ -1009,7 +1491,12 @@ top:60vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2019/07/15/dart-learn3/" >基本数据类型 float 和 double 的区别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
         </li>
     
     
@@ -1034,7 +1521,7 @@ top:60vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
         </li>
     
     
@@ -1072,11 +1559,11 @@ top:60vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="angular7"><span class="iconfont-archer">&#xe606;</span>angular7</span>
-    
         <span class="sidebar-tag-name" data-tags="TypeScript"><span class="iconfont-archer">&#xe606;</span>TypeScript</span>
     
         <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+    
+        <span class="sidebar-tag-name" data-tags="angular7"><span class="iconfont-archer">&#xe606;</span>angular7</span>
     
         <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
     
@@ -1106,11 +1593,11 @@ top:60vh;
     
         <span class="sidebar-tag-name" data-tags="ionic4"><span class="iconfont-archer">&#xe606;</span>ionic4</span>
     
-        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
-    
         <span class="sidebar-tag-name" data-tags="微信小程序"><span class="iconfont-archer">&#xe606;</span>微信小程序</span>
     
         <span class="sidebar-tag-name" data-tags="scroll-view"><span class="iconfont-archer">&#xe606;</span>scroll-view</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1145,13 +1632,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="angular7"><span class="iconfont-archer">&#xe60a;</span>angular7</span>
-    
         <span class="sidebar-category-name" data-categories="TypeScript"><span class="iconfont-archer">&#xe60a;</span>TypeScript</span>
     
-        <span class="sidebar-category-name" data-categories="css"><span class="iconfont-archer">&#xe60a;</span>css</span>
+        <span class="sidebar-category-name" data-categories="angular7"><span class="iconfont-archer">&#xe60a;</span>angular7</span>
     
         <span class="sidebar-category-name" data-categories="TypeScript/ES6"><span class="iconfont-archer">&#xe60a;</span>TypeScript/ES6</span>
+    
+        <span class="sidebar-category-name" data-categories="css"><span class="iconfont-archer">&#xe60a;</span>css</span>
     
         <span class="sidebar-category-name" data-categories="dart"><span class="iconfont-archer">&#xe60a;</span>dart</span>
     
@@ -1161,9 +1648,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="ionic4"><span class="iconfont-archer">&#xe60a;</span>ionic4</span>
     
-        <span class="sidebar-category-name" data-categories="正则表达式"><span class="iconfont-archer">&#xe60a;</span>正则表达式</span>
-    
         <span class="sidebar-category-name" data-categories="微信小程序"><span class="iconfont-archer">&#xe60a;</span>微信小程序</span>
+    
+        <span class="sidebar-category-name" data-categories="正则表达式"><span class="iconfont-archer">&#xe60a;</span>正则表达式</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
