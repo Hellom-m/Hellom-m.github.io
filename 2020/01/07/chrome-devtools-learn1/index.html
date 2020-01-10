@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hellom_m">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hellom_m">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Chrome DevTools 调试技巧 · Hellom&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/faviconr.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hellom&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Chrome DevTools 调试技巧</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Hellom's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:60vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://s2.ax1x.com/2019/07/18/ZX4pe1.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Chrome DevTools 调试技巧
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "chrome">chrome</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/01/07</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Chrome-DevTools-九大功能面板分布："><a href="#Chrome-DevTools-九大功能面板分布：" class="headerlink" title="Chrome DevTools 九大功能面板分布："></a>Chrome DevTools 九大功能面板分布：</h2><h3 id="Elements-元素面板"><a href="#Elements-元素面板" class="headerlink" title="Elements 元素面板"></a>Elements 元素面板</h3><h4 id="用途：检查和调整页面，调试-dom-元素及-调试-CSS-样式"><a href="#用途：检查和调整页面，调试-dom-元素及-调试-CSS-样式" class="headerlink" title="用途：检查和调整页面，调试 dom 元素及 调试 CSS 样式"></a>用途：检查和调整页面，调试 <code>dom</code> 元素及 调试 <code>CSS</code> 样式</h4><h4 id="快捷键："><a href="#快捷键：" class="headerlink" title="快捷键："></a>快捷键：</h4><ul>
+<li><p><strong>Mac:</strong> <code>Command + Option + C</code></p>
+</li>
+<li><p><strong>Win:</strong>  <code>Ctrl + shift + C</code></p>
+</li>
+</ul>
+<h4 id="功能介绍："><a href="#功能介绍：" class="headerlink" title="功能介绍："></a>功能介绍：</h4><p><strong>1） 实时编辑 <code>HTML</code> 和 <code>DOM</code>：</strong></p>
+<p>选中当前 <code>dom</code> 节点，鼠标右击后可实时编辑 <code>HTML</code> 和 <code>DOM</code></p>
+<ul>
+<li><p><code>Add attribute</code> : 添加一个标签属性</p>
+</li>
+<li><p><code>Edit as HTML</code> : 以 HTML 形式修改当前 dom 节点</p>
+</li>
+</ul>
+<p><strong>2） 查看和编辑 <code>CSS</code>：</strong></p>
+<p>这个功能应该是前端程序员必备的技能 具体不详细介绍</p>
+<p><strong>3） 在元素中动态增加类与伪类：</strong></p>
+<p>此功能与2）功能类型差不多</p>
+<img src="https://s2.ax1x.com/2020/01/08/l2cO3j.png" alt="l2cO3j.png" border="0">
+
+<p>在右侧面板中找到  <code>Styles</code> 选项卡 如上图所示</p>
+<p>下方有一条功能栏</p>
+<ul>
+<li><p><code>搜索框</code>： 可搜索所需要的样式名</p>
+</li>
+<li><p><code>：hov</code>： 可在浏览器中增加伪类 更直观的调试</p>
+</li>
+<li><p><code>.cls</code>：在元素中添加这个类</p>
+</li>
+<li><p><code>+</code>： 在 <code>Styles</code> 面板中增加一个类</p>
+</li>
+</ul>
+<p>添加的类样式 浏览器会将其暂存下来</p>
+<p>在 <code>inspector-stylesheet</code> 这个文件中</p>
+<p>可手动复制到自己的项目中</p>
+<p>可以更加直观的调试 css 代码</p>
+<p>如下图所示：</p>
+<img src="https://s2.ax1x.com/2020/01/09/lWQlex.png" alt="lWQlex.png" border="0">
+
+
+<p><strong>4） 快速调试<code>CSS</code>数值及颜色图形动画等：</strong></p>
+<ul>
+<li><strong>调试 css 颜色数值</strong></li>
+</ul>
+<p>在面板中 例如：<code>color：#fff;</code> 里有一个小色块 </p>
+<p>点开来会有一个调色板 可以拖动滚球 并且调整色值</p>
+<p>如下图所示：</p>
+<img src="https://s2.ax1x.com/2020/01/09/lWcFn1.png" alt="lWcFn1.png" border="0">
+
+
+<ul>
+<li><strong>快速调试 css 文字阴影及盒阴影</strong></li>
+</ul>
+<p>鼠标移至当前所要改的类样式上 右下角会出现 三个点的按钮</p>
+<p>会出现四个图标 分别是：</p>
+<p><code>Add text-shadow</code> ：添加文字阴影</p>
+<p><code>Add box-shadow</code> ：添加盒阴影</p>
+<p><code>Add color</code>：添加文字颜色</p>
+<p><code>Add background-color</code>：添加背景颜色</p>
+<p>每个点击后都会 弹出一个调整框 </p>
+<p>可随意的调整所要的样式效果 </p>
+<p>相比传统的在 项目中改好 一遍一遍编译的</p>
+<p>提高了工作的效率  更加明了直观 </p>
+<p>是不是很棒棒呢~ (<em>^▽^</em>)</p>
+<p>赶紧动手做起来吧~</p>
+<img src="https://s2.ax1x.com/2020/01/09/lW6zhF.png" alt="lW6zhF.png" border="0">
+
+<ul>
+<li><strong>调试图形动画效果</strong></li>
+</ul>
+<p>这个功能我觉得非常炫酷~ </p>
+<p>并且可以利用最少的时间</p>
+<p>调试完一些简单的动画效果</p>
+<p>首先 在 <code>Elements</code> 面板中</p>
+<p>同一行中 找到最右边的 三个点 图标</p>
+<p>点击后 <code>More Tools</code> =&gt;  <code>Animations</code></p>
+<p>在底部就会弹出一个 <code>Animations</code> 的面板</p>
+<p>如下图所示：</p>
+<img src="https://s2.ax1x.com/2020/01/09/lWKq5F.png" alt="lWKq5F.png" border="0">
+
+<p>举个栗子：</p>
+<p>给 <code>.quote</code> 加上 <code>hover</code> 属性</p>
+<p>并且设置一个过渡的效果</p>
+<p>然后呢 回到网页上 看下鼠标滑到该元素上</p>
+<p>是否 3s 从字体 14px 过渡到 20px 效果</p>
+<p>如果有的话 那就点击 <code>Animations</code> 的面板中</p>
+<p>录制按钮 长的类似于 暂停 播放的按钮</p>
+<p>然后 在回到网页 看下此过渡效果</p>
+<p>这时候 <code>Animations</code> 面板中</p>
+<p>会有一格一格的线</p>
+<p>鼠标滑上去 就会神奇的发现被录制下来</p>
+<p>点击当前的块 还会出现一个时间轴</p>
+<p>可拖动滑块调整 一些动画效果的参数</p>
+<p>以达到所要的效果</p>
+<p>是不是很炫酷 </p>
+<p>比起之前一直在css文件中调试</p>
+<p>节省了很多时间 还一时之间</p>
+<p>找不到问题的所在</p>
+<p>所以你get了嘛 (＾＿－)</p>
+<p>如图所示：</p>
+<img src="https://s2.ax1x.com/2020/01/09/lWcVAK.png" alt="lWcVAK.png" border="0">
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.quote</span><span class="selector-attr">[_ngcontent-fpo-c3]</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">47px</span> <span class="number">0</span> <span class="number">30px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">1px</span> solid <span class="number">#DDDDDD</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#b2863c</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.quote</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">transition</span>: all <span class="number">3s</span> ease;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Network-网络面板"><a href="#Network-网络面板" class="headerlink" title="Network 网络面板"></a>Network 网络面板</h3><h4 id="用途：了解静态资源分布，调试请求数据，网页性能检测"><a href="#用途：了解静态资源分布，调试请求数据，网页性能检测" class="headerlink" title="用途：了解静态资源分布，调试请求数据，网页性能检测"></a>用途：了解静态资源分布，调试请求数据，网页性能检测</h4><hr>
+<h3 id="Console-控制台面板"><a href="#Console-控制台面板" class="headerlink" title="Console 控制台面板"></a>Console 控制台面板</h3><h4 id="用途：查看-console-log-日志，调试-JavaScrip-代码，交互式代码调试"><a href="#用途：查看-console-log-日志，调试-JavaScrip-代码，交互式代码调试" class="headerlink" title="用途：查看 console log 日志，调试 JavaScrip 代码，交互式代码调试"></a>用途：查看 <code>console log</code> 日志，调试 <code>JavaScrip</code> 代码，交互式代码调试</h4><h4 id="快捷键：-1"><a href="#快捷键：-1" class="headerlink" title="快捷键："></a>快捷键：</h4><ul>
+<li><p><strong>Mac:</strong> <code>Command + Option + J</code></p>
+</li>
+<li><p><strong>Win:</strong>  <code>Ctrl + shift + J</code></p>
+</li>
+</ul>
+<h4 id="功能介绍：-1"><a href="#功能介绍：-1" class="headerlink" title="功能介绍："></a>功能介绍：</h4><p><strong>1） 三种在 <code>Console</code> 中访问节点的方法：</strong></p>
+<ul>
+<li><code>document.querySelectorAll(&#39;div&#39;)</code>：浏览器自带的查找方法 查看所需的 <code>HTML</code> 标签 回车即可得到 节点树</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输入内容</span></span><br><span class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">'div'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line">NodeList(<span class="number">8</span>) [div.container, div.login-content, div.login-logo, div.login-block, div.qrcode, div.title, div.qr, div.copyright]</span><br><span class="line"><span class="number">0</span>: div.container</span><br><span class="line"><span class="number">1</span>: div.login-content</span><br><span class="line"><span class="number">2</span>: div.login-logo</span><br><span class="line"><span class="number">3</span>: div.login-block</span><br><span class="line"><span class="number">4</span>: div.qrcode</span><br><span class="line"><span class="number">5</span>: div.title</span><br><span class="line"><span class="number">6</span>: div.qr</span><br><span class="line"><span class="number">7</span>: div.copyright</span><br><span class="line">length: <span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$0</code>：先在 <strong>Elements</strong> 面板中 选中所选元素后 再回到 <strong>Console</strong> 面板中 输入 <code>$0</code> 回车即可得到 所选元素的 dom 结构</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输入内容</span></span><br><span class="line">$<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">"body &gt; app-root &gt; app-login &gt; div &gt; div.login-content &gt; div.login-logo &gt; img"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Copy Js Path</code>: 操作前面如同 <code>$0</code> 只不过在选中元素后 右击选择 Copy =&gt; Copy Js Path 然后在 <strong>Console</strong> 面板中 粘贴回车即可</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 Copy Js Path 方式 复制的内容</span></span><br><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">"body &gt; app-root &gt; app-login &gt; div &gt; div.login-content &gt; div.login-logo &gt; img"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line">&lt;img _ngcontent-gtc-c1 alt src=<span class="string">"whatImg.png"</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2） 在 Console 中调试 Log 日志：</strong></p>
+<p>一些常用的就不详细展开讲了</p>
+<p>下面讲些不一样的内容</p>
+<ul>
+<li><em>那如何在 <code>console</code> 面板中输入多行代码呢？</em></li>
+</ul>
+<p>以前写的时候都是写一行 看起来很是费劲</p>
+<p>这次介绍使用 <code>shift + enter</code> 想换行的时候就用它吧 是不是很方便呢~</p>
+<ul>
+<li><em>如何使用 console.log()打印出变量呢？</em></li>
+</ul>
+<p>可使用 <code>%s</code> 来作为占位符</p>
+<p>具体代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> temp = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'%s 这个变量'</span>, temp); <span class="comment">// 输出 test 这个变量</span></span><br></pre></td></tr></table></figure>
+
+<p><code>console.log 的用法</code></p>
+<p><strong>3） 三种断点调试的方法：</strong></p>
+<ul>
+<li>在代码中 需要调试的函数前面 添加 <code>debugger;</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> getQRcode = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    debugger;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在 <code>Sources</code> 面板的右侧 找到 <code>Event Listener Breakpoints</code> 会显示所有监听的类型选项</p>
+</li>
+<li><p>在 <code>Sources</code> 面板中 点击源代码对应的行数 看到蓝色高亮 再刷新当前页面即可进行断点调试</p>
+</li>
+</ul>
+<h4 id="vscode-插件"><a href="#vscode-插件" class="headerlink" title="vscode 插件"></a>vscode 插件</h4><ul>
+<li><code>live server</code>：可直接在浏览器中 打开<code>HTML</code>文件  </li>
+</ul>
+<p>安装以后 vscode 底部 会有 <code>Go Live</code>的按钮 </p>
+<p>打开所需的 <code>HTML</code>文件 点击这个按钮 即可</p>
+<hr>
+<h3 id="Sources-源代码资源面板"><a href="#Sources-源代码资源面板" class="headerlink" title="Sources 源代码资源面板"></a>Sources 源代码资源面板</h3><h4 id="用途：断点调试-JavaScript-代码，有利于查找-bug"><a href="#用途：断点调试-JavaScript-代码，有利于查找-bug" class="headerlink" title="用途：断点调试 JavaScript 代码，有利于查找 bug"></a>用途：断点调试 <code>JavaScript</code> 代码，有利于查找 bug</h4><h4 id="功能介绍：-2"><a href="#功能介绍：-2" class="headerlink" title="功能介绍："></a>功能介绍：</h4><p><strong>1） 使用 DevTools 作为代码编辑器：</strong></p>
+<p>在 <code>Sources</code> 面板中 下边有一条工具栏：</p>
+<p>按照顺序是：<code>Page</code>、<code>Filesystem</code> 、<code>Overrides</code>等</p>
+<p>这次 介绍的是 <code>Filesystem</code> 可授权添加本地文件夹</p>
+<p>点击下一条工具栏中 <code>Add folder to workspace</code>即可</p>
+<p>然后选择本地的文件 可在右侧的界面中 实时的编辑代码</p>
+<p>保存后 本地的文件也相应会有 </p>
+<p>可以实现 所写及所见</p>
+<p>如图所示：</p>
+<img src="https://s2.ax1x.com/2020/01/10/lhxtG8.png" alt="lhxtG8.png" border="0">
+
+<hr>
+<h3 id="Application-应用面板"><a href="#Application-应用面板" class="headerlink" title="Application 应用面板"></a>Application 应用面板</h3><h4 id="用途：可查看和调试客户端存储，列如：Local-Storage-、Session-Storage-、Cookies-等"><a href="#用途：可查看和调试客户端存储，列如：Local-Storage-、Session-Storage-、Cookies-等" class="headerlink" title="用途：可查看和调试客户端存储，列如：Local Storage 、Session Storage 、Cookies 等"></a>用途：可查看和调试客户端存储，列如：<code>Local Storage</code> 、<code>Session Storage</code> 、<code>Cookies</code> 等</h4><h3 id="Performance-性能面板（高阶）"><a href="#Performance-性能面板（高阶）" class="headerlink" title="Performance 性能面板（高阶）"></a>Performance 性能面板（高阶）</h3><h4 id="用途：查看页面运行性能细节，细粒度对网页载入进行性能优化"><a href="#用途：查看页面运行性能细节，细粒度对网页载入进行性能优化" class="headerlink" title="用途：查看页面运行性能细节，细粒度对网页载入进行性能优化"></a>用途：查看页面运行性能细节，细粒度对网页载入进行性能优化</h4><h3 id="Memory-内存面板（高阶）"><a href="#Memory-内存面板（高阶）" class="headerlink" title="Memory 内存面板（高阶）"></a>Memory 内存面板（高阶）</h3><h4 id="用途：JavaScript-CPU-分析器，内存堆分析器"><a href="#用途：JavaScript-CPU-分析器，内存堆分析器" class="headerlink" title="用途：JavaScript CPU 分析器，内存堆分析器"></a>用途：<code>JavaScript CPU</code> 分析器，内存堆分析器</h4><h3 id="Security-安全面板"><a href="#Security-安全面板" class="headerlink" title="Security 安全面板"></a>Security 安全面板</h3><h4 id="用途：查看页面安全及证书问题"><a href="#用途：查看页面安全及证书问题" class="headerlink" title="用途：查看页面安全及证书问题"></a>用途：查看页面安全及证书问题</h4><h3 id="Audits-面板（高阶）"><a href="#Audits-面板（高阶）" class="headerlink" title="Audits 面板（高阶）"></a>Audits 面板（高阶）</h3><h4 id="用途：使用-Google-Lighthouse-辅助性能分析，给出优化建议"><a href="#用途：使用-Google-Lighthouse-辅助性能分析，给出优化建议" class="headerlink" title="用途：使用 Google Lighthouse 辅助性能分析，给出优化建议"></a>用途：使用 <code>Google Lighthouse</code> 辅助性能分析，给出优化建议</h4><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="1-打开最近关闭的状态："><a href="#1-打开最近关闭的状态：" class="headerlink" title="1) 打开最近关闭的状态："></a>1) 打开最近关闭的状态：</h3><ul>
+<li><p><strong>Mac:</strong> <code>Command + Option + i</code></p>
+</li>
+<li><p><strong>Win:</strong>  <code>Ctrl + shift + i</code></p>
+</li>
+</ul>
+<h3 id="2-快速打开："><a href="#2-快速打开：" class="headerlink" title="2) 快速打开："></a>2) 快速打开：</h3><ul>
+<li><p><strong>Mac:</strong> <code>Command + Option + i</code></p>
+</li>
+<li><p><strong>Win:</strong>  <code>F12</code></p>
+</li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/01/09/wxmini-q4/" title= "新建微信小程序项目后 默认样式设置宽高无效">
+                    <div class="nextTitle">新建微信小程序项目后 默认样式设置宽高无效</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/09/18/css-learn/" title= "玩转css3新属性">
+                    <div class="prevTitle">玩转css3新属性</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:hellom_m@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/hellom-m" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechatQR.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Copyright © <a href="" target="_blank">Hellom_m  </a> 2019</span>
+        <span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:60vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome-DevTools-九大功能面板分布："><span class="toc-number">1.</span> <span class="toc-text">Chrome DevTools 九大功能面板分布：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Elements-元素面板"><span class="toc-number">1.1.</span> <span class="toc-text">Elements 元素面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：检查和调整页面，调试-dom-元素及-调试-CSS-样式"><span class="toc-number">1.1.1.</span> <span class="toc-text">用途：检查和调整页面，调试 dom 元素及 调试 CSS 样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#快捷键："><span class="toc-number">1.1.2.</span> <span class="toc-text">快捷键：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能介绍："><span class="toc-number">1.1.3.</span> <span class="toc-text">功能介绍：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Network-网络面板"><span class="toc-number">1.2.</span> <span class="toc-text">Network 网络面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：了解静态资源分布，调试请求数据，网页性能检测"><span class="toc-number">1.2.1.</span> <span class="toc-text">用途：了解静态资源分布，调试请求数据，网页性能检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Console-控制台面板"><span class="toc-number">1.3.</span> <span class="toc-text">Console 控制台面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：查看-console-log-日志，调试-JavaScrip-代码，交互式代码调试"><span class="toc-number">1.3.1.</span> <span class="toc-text">用途：查看 console log 日志，调试 JavaScrip 代码，交互式代码调试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#快捷键：-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">快捷键：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能介绍：-1"><span class="toc-number">1.3.3.</span> <span class="toc-text">功能介绍：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vscode-插件"><span class="toc-number">1.3.4.</span> <span class="toc-text">vscode 插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sources-源代码资源面板"><span class="toc-number">1.4.</span> <span class="toc-text">Sources 源代码资源面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：断点调试-JavaScript-代码，有利于查找-bug"><span class="toc-number">1.4.1.</span> <span class="toc-text">用途：断点调试 JavaScript 代码，有利于查找 bug</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能介绍：-2"><span class="toc-number">1.4.2.</span> <span class="toc-text">功能介绍：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-应用面板"><span class="toc-number">1.5.</span> <span class="toc-text">Application 应用面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：可查看和调试客户端存储，列如：Local-Storage-、Session-Storage-、Cookies-等"><span class="toc-number">1.5.1.</span> <span class="toc-text">用途：可查看和调试客户端存储，列如：Local Storage 、Session Storage 、Cookies 等</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Performance-性能面板（高阶）"><span class="toc-number">1.6.</span> <span class="toc-text">Performance 性能面板（高阶）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：查看页面运行性能细节，细粒度对网页载入进行性能优化"><span class="toc-number">1.6.1.</span> <span class="toc-text">用途：查看页面运行性能细节，细粒度对网页载入进行性能优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-内存面板（高阶）"><span class="toc-number">1.7.</span> <span class="toc-text">Memory 内存面板（高阶）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：JavaScript-CPU-分析器，内存堆分析器"><span class="toc-number">1.7.1.</span> <span class="toc-text">用途：JavaScript CPU 分析器，内存堆分析器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-安全面板"><span class="toc-number">1.8.</span> <span class="toc-text">Security 安全面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：查看页面安全及证书问题"><span class="toc-number">1.8.1.</span> <span class="toc-text">用途：查看页面安全及证书问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Audits-面板（高阶）"><span class="toc-number">1.9.</span> <span class="toc-text">Audits 面板（高阶）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：使用-Google-Lighthouse-辅助性能分析，给出优化建议"><span class="toc-number">1.9.1.</span> <span class="toc-text">用途：使用 Google Lighthouse 辅助性能分析，给出优化建议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用快捷键"><span class="toc-number">2.</span> <span class="toc-text">常用快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-打开最近关闭的状态："><span class="toc-number">2.1.</span> <span class="toc-text">1) 打开最近关闭的状态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-快速打开："><span class="toc-number">2.2.</span> <span class="toc-text">2) 快速打开：</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 32
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/01/09/wxmini-q4/" >新建微信小程序项目后 默认样式设置宽高无效</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/chrome-devtools-learn1/" >Chrome DevTools 调试技巧</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/css-learn/" >玩转css3新属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2019/09/04/scroll-q1/" >关于 scrollTop offsetTop 等位置属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/regexp-learn1/" >巧记正则表达式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/2019/08/22/TS-vs-ES6/" >TS 与 ES6</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2019/08/13/wxmini-q3/" >微信小程序 scroll-into-view 锚点失效问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2019/08/09/flutter-learn6/" >flutter 之 拍照及本地相册获取图片</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2019/08/08/flutter-learn5/" >flutter 之图片控件详解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/2019/08/02/flutter-learn4/" >flutter 之页面生命周期</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/2019/08/02/flutter-learn3/" >flutter 之如何打开第三方应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2019/07/31/flutter-learn2/" >flutter 之路由篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/2019/07/19/flutter-learn1/" >flutter 之布局篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn6/" >Dart 学习之面向对象编程 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn7/" >Dart 学习之枚举和类型</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn4/" >Dart 学习之方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2019/07/15/dart-learn1/" >Dart 学习之数据类型</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2019/07/15/dart-learn2/" >Dart 学习之运算符</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2019/07/15/dart-learn3/" >基本数据类型 float 和 double 的区别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q3/" >ng7 项目打包  ng build --prod --aot 报错</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/css-q1/" >css 多行文本溢出省略号 编译后会过滤 不生效</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q2/" >ng7 打包项目后 跳转路由刷新页面报 404 错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/ionic4-q1/" >关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/dart-build/" >VsCode 搭建 dart 环境</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href= "/2019/07/11/flutter-build/" >VsCode 搭建 flutter 环境</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2019/07/05/wxmimi-q2/" >微信小程序 打开内嵌 H5 界面碰到的问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/hexo-build-blog/" >hexo 搭建个人博客</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/wxmini-q1/" >微信小程序 更改目录后打开无内容</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span><a class="archive-post-title" href= "/2019/06/17/ionic3-q1/" >关于 ionic3 极光推送 Registration ID 第一次获取不到</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="TypeScript"><span class="iconfont-archer">&#xe606;</span>TypeScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+    
+        <span class="sidebar-tag-name" data-tags="angular7"><span class="iconfont-archer">&#xe606;</span>angular7</span>
+    
+        <span class="sidebar-tag-name" data-tags="chrome"><span class="iconfont-archer">&#xe606;</span>chrome</span>
+    
+        <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
+    
+        <span class="sidebar-tag-name" data-tags="dart"><span class="iconfont-archer">&#xe606;</span>dart</span>
+    
+        <span class="sidebar-tag-name" data-tags="VsCode"><span class="iconfont-archer">&#xe606;</span>VsCode</span>
+    
+        <span class="sidebar-tag-name" data-tags="面向对象"><span class="iconfont-archer">&#xe606;</span>面向对象</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据类型"><span class="iconfont-archer">&#xe606;</span>数据类型</span>
+    
+        <span class="sidebar-tag-name" data-tags="枚举"><span class="iconfont-archer">&#xe606;</span>枚举</span>
+    
+        <span class="sidebar-tag-name" data-tags="flutter"><span class="iconfont-archer">&#xe606;</span>flutter</span>
+    
+        <span class="sidebar-tag-name" data-tags="布局"><span class="iconfont-archer">&#xe606;</span>布局</span>
+    
+        <span class="sidebar-tag-name" data-tags="image_picker"><span class="iconfont-archer">&#xe606;</span>image_picker</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="ionic3"><span class="iconfont-archer">&#xe606;</span>ionic3</span>
+    
+        <span class="sidebar-tag-name" data-tags="极光推送"><span class="iconfont-archer">&#xe606;</span>极光推送</span>
+    
+        <span class="sidebar-tag-name" data-tags="ionic4"><span class="iconfont-archer">&#xe606;</span>ionic4</span>
+    
+        <span class="sidebar-tag-name" data-tags="微信小程序"><span class="iconfont-archer">&#xe606;</span>微信小程序</span>
+    
+        <span class="sidebar-tag-name" data-tags="scroll-view"><span class="iconfont-archer">&#xe606;</span>scroll-view</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="TypeScript"><span class="iconfont-archer">&#xe60a;</span>TypeScript</span>
+    
+        <span class="sidebar-category-name" data-categories="angular7"><span class="iconfont-archer">&#xe60a;</span>angular7</span>
+    
+        <span class="sidebar-category-name" data-categories="TypeScript/ES6"><span class="iconfont-archer">&#xe60a;</span>TypeScript/ES6</span>
+    
+        <span class="sidebar-category-name" data-categories="chrome"><span class="iconfont-archer">&#xe60a;</span>chrome</span>
+    
+        <span class="sidebar-category-name" data-categories="css"><span class="iconfont-archer">&#xe60a;</span>css</span>
+    
+        <span class="sidebar-category-name" data-categories="dart"><span class="iconfont-archer">&#xe60a;</span>dart</span>
+    
+        <span class="sidebar-category-name" data-categories="flutter"><span class="iconfont-archer">&#xe60a;</span>flutter</span>
+    
+        <span class="sidebar-category-name" data-categories="ionic3"><span class="iconfont-archer">&#xe60a;</span>ionic3</span>
+    
+        <span class="sidebar-category-name" data-categories="ionic4"><span class="iconfont-archer">&#xe60a;</span>ionic4</span>
+    
+        <span class="sidebar-category-name" data-categories="微信小程序"><span class="iconfont-archer">&#xe60a;</span>微信小程序</span>
+    
+        <span class="sidebar-category-name" data-categories="正则表达式"><span class="iconfont-archer">&#xe60a;</span>正则表达式</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hellom_m"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write("<script src='/lib/jquery.min.js'>\x3C/script>")
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

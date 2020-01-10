@@ -359,6 +359,71 @@ height:60vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/12/css-q1/" >
+            
+                <span>css 多行文本溢出省略号 编译后会过滤 不生效</span>
+        </a>
+        <div class="abstract-content">
+            问题描述：css 多行文本溢出显示省略号 -webkit-box-orient: vertical 编译后会过滤 不生效
+解决办法：1234567891011width: 262px;height: 50px;font-size: $f17;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;/* autoprefixer: off */   &lt;== /*添加以下两段注释即可生效*/-webkit-box-orient: vertical;/* autoprefixe...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/12</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "css">css</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/12/ionic4-q1/" >
+            
+                <span>关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</span>
+        </a>
+        <div class="abstract-content">
+            具体报错内容:Property binding ngIf not used by any directive on an embedded template. Make sure that the property name is spelled correctly and all directives are listed in the &quot;@NgModule.declarations&quot;. 
+解决办法:
+导入  import { CommonModule } from &#39;@angular/common&#39;;
+
+imports 中引入 CommonModu...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/12</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "angular7">angular7</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ionic4">ionic4</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/07/12/angular-q3/" >
             
                 <span>ng7 项目打包  ng build --prod --aot 报错</span>
@@ -657,94 +722,10 @@ src 属性：webview 指向网页的链接 可打开关联的公众号的文章 
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/06/18/wxmini-q1/" >
-            
-                <span>微信小程序 更改目录后打开无内容</span>
-        </a>
-        <div class="abstract-content">
-            微信小程序文件目录原本放桌面，整理了下桌面，遂放到了D盘导致打开后没有内容。
-后面找到了解决办法：
-
-用微信开发者工具打开此项目，点击右上角有一个详情按钮。
-
-
-
-
-打开文件系统，找到WeappLocalData文件夹
-
-
-
-
-
-找到带有project字符，后面是此项目名字的json文件。
-
-打开此json文件，找到projectpath字段修改目录即可。
-
-
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/18</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "微信小程序">微信小程序</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/06/17/ionic3-q1/" >
-            
-                <span>关于 ionic3 极光推送 Registration ID 第一次获取不到</span>
-        </a>
-        <div class="abstract-content">
-            问题关于 Registration ID 第一次获取不到，可以用 setTimeout 延迟后获取。
-ios 开发环境能收到通知消息，生产模式接收不到通知消息。
-ios 发布到 app store 上，下下来的 app 仍然获取不到id。使用 xcode 连接 iPhone 安装的 app，就能获取到 id。
-版本lonic3angular cli：6.0.7node：8.11.1
-关于如何下载jpush插件及极光推送文档
-https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guideli...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ionic3">ionic3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "极光推送">极光推送</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+        <a class="extend prev" rel="prev" href="/page/2/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1365,9 +1346,25 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 30
+        Total : 32
         </div>
         <!-- search  -->
         
@@ -1377,6 +1374,25 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
     
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/01/09/wxmini-q4/" >新建微信小程序项目后 默认样式设置宽高无效</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/chrome-devtools-learn1/" >Chrome DevTools 调试技巧</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
@@ -1443,7 +1459,7 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn4/" >Dart 学习之方法</a>
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
         </li>
     
     
@@ -1453,7 +1469,7 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn4/" >Dart 学习之方法</a>
         </li>
     
     
@@ -1473,12 +1489,12 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q3/" >ng7 项目打包  ng build --prod --aot 报错</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/ionic4-q1/" >关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
         </li>
     
     
@@ -1493,12 +1509,12 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q3/" >ng7 项目打包  ng build --prod --aot 报错</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/ionic4-q1/" >关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</a>
         </li>
     
     
@@ -1542,15 +1558,17 @@ https://github.com/jpush/jpush-phonegap-pluginhttps://docs.jiguang.cn/jpush/guid
     
         <span class="sidebar-tag-name" data-tags="angular7"><span class="iconfont-archer">&#xe606;</span>angular7</span>
     
+        <span class="sidebar-tag-name" data-tags="chrome"><span class="iconfont-archer">&#xe606;</span>chrome</span>
+    
         <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
     
         <span class="sidebar-tag-name" data-tags="dart"><span class="iconfont-archer">&#xe606;</span>dart</span>
     
         <span class="sidebar-tag-name" data-tags="VsCode"><span class="iconfont-archer">&#xe606;</span>VsCode</span>
     
-        <span class="sidebar-tag-name" data-tags="数据类型"><span class="iconfont-archer">&#xe606;</span>数据类型</span>
-    
         <span class="sidebar-tag-name" data-tags="面向对象"><span class="iconfont-archer">&#xe606;</span>面向对象</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据类型"><span class="iconfont-archer">&#xe606;</span>数据类型</span>
     
         <span class="sidebar-tag-name" data-tags="枚举"><span class="iconfont-archer">&#xe606;</span>枚举</span>
     
@@ -1614,6 +1632,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="angular7"><span class="iconfont-archer">&#xe60a;</span>angular7</span>
     
         <span class="sidebar-category-name" data-categories="TypeScript/ES6"><span class="iconfont-archer">&#xe60a;</span>TypeScript/ES6</span>
+    
+        <span class="sidebar-category-name" data-categories="chrome"><span class="iconfont-archer">&#xe60a;</span>chrome</span>
     
         <span class="sidebar-category-name" data-categories="css"><span class="iconfont-archer">&#xe60a;</span>css</span>
     

@@ -346,6 +346,78 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/08/02/flutter-learn3/" >
+            
+                <span>flutter 之如何打开第三方应用</span>
+        </a>
+        <div class="abstract-content">
+            Flutter 需要打开第三方应用 就需要使用插件
+在 Dart Packages 里 搜索 url_launcher 插件
+
+https://pub.dev/
+
+具体使用可参看官方实例：
+
+https://pub.dev/packages/url_launcher
+
+以下是两个例子：
+点击打开浏览器123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354e.g.import 'package:flutter/material.dart';impo...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/02</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "flutter">flutter</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/31/flutter-learn2/" >
+            
+                <span>flutter 之路由篇</span>
+        </a>
+        <div class="abstract-content">
+            布局练习的差不多 接下来就要学习路由啦
+那么如何创建和使用路由和导航呢？
+首先在 MaterialApp 注册 routes&#39;ful&#39; =&gt; 路由的名称
+(BuildContext context) =&gt; StatefulGroup() =&gt;  路由指向的页面
+12345678910111213141516171819202122232425e.g.// main.dartclass MyApp extends StatelessWidget &#123;  @override  Widget build(BuildContext context) &#...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/31</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "flutter">flutter</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/07/19/flutter-learn1/" >
             
                 <span>flutter 之布局篇</span>
@@ -699,75 +771,10 @@ double 浮点型
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/12/css-q1/" >
-            
-                <span>css 多行文本溢出省略号 编译后会过滤 不生效</span>
-        </a>
-        <div class="abstract-content">
-            问题描述：css 多行文本溢出显示省略号 -webkit-box-orient: vertical 编译后会过滤 不生效
-解决办法：1234567891011width: 262px;height: 50px;font-size: $f17;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;/* autoprefixer: off */   &lt;== /*添加以下两段注释即可生效*/-webkit-box-orient: vertical;/* autoprefixe...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "css">css</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/12/ionic4-q1/" >
-            
-                <span>关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</span>
-        </a>
-        <div class="abstract-content">
-            具体报错内容:Property binding ngIf not used by any directive on an embedded template. Make sure that the property name is spelled correctly and all directives are listed in the &quot;@NgModule.declarations&quot;. 
-解决办法:
-导入  import { CommonModule } from &#39;@angular/common&#39;;
-
-imports 中引入 CommonModu...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "angular7">angular7</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ionic4">ionic4</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1310,9 +1317,25 @@ imports 中引入 CommonModu...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 30
+        Total : 32
         </div>
         <!-- search  -->
         
@@ -1322,6 +1345,25 @@ imports 中引入 CommonModu...
     
     
     
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/01/09/wxmini-q4/" >新建微信小程序项目后 默认样式设置宽高无效</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/chrome-devtools-learn1/" >Chrome DevTools 调试技巧</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
@@ -1388,7 +1430,7 @@ imports 中引入 CommonModu...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn4/" >Dart 学习之方法</a>
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
         </li>
     
     
@@ -1398,7 +1440,7 @@ imports 中引入 CommonModu...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn5/" >Dart 学习之面向对象编程1</a>
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href= "/2019/07/16/dart-learn4/" >Dart 学习之方法</a>
         </li>
     
     
@@ -1418,12 +1460,12 @@ imports 中引入 CommonModu...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q3/" >ng7 项目打包  ng build --prod --aot 报错</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/ionic4-q1/" >关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular7-all/" >angular7 问题集合</a>
         </li>
     
     
@@ -1438,12 +1480,12 @@ imports 中引入 CommonModu...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q3/" >ng7 项目打包  ng build --prod --aot 报错</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/angular-q1/" >ng7 *ngfor 循环遍历 属性不存在</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/ionic4-q1/" >关于 ionic4 中 *ngif 在 自定义组件 里面报错的问题</a>
         </li>
     
     
@@ -1487,15 +1529,17 @@ imports 中引入 CommonModu...
     
         <span class="sidebar-tag-name" data-tags="angular7"><span class="iconfont-archer">&#xe606;</span>angular7</span>
     
+        <span class="sidebar-tag-name" data-tags="chrome"><span class="iconfont-archer">&#xe606;</span>chrome</span>
+    
         <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
     
         <span class="sidebar-tag-name" data-tags="dart"><span class="iconfont-archer">&#xe606;</span>dart</span>
     
         <span class="sidebar-tag-name" data-tags="VsCode"><span class="iconfont-archer">&#xe606;</span>VsCode</span>
     
-        <span class="sidebar-tag-name" data-tags="数据类型"><span class="iconfont-archer">&#xe606;</span>数据类型</span>
-    
         <span class="sidebar-tag-name" data-tags="面向对象"><span class="iconfont-archer">&#xe606;</span>面向对象</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据类型"><span class="iconfont-archer">&#xe606;</span>数据类型</span>
     
         <span class="sidebar-tag-name" data-tags="枚举"><span class="iconfont-archer">&#xe606;</span>枚举</span>
     
@@ -1559,6 +1603,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="angular7"><span class="iconfont-archer">&#xe60a;</span>angular7</span>
     
         <span class="sidebar-category-name" data-categories="TypeScript/ES6"><span class="iconfont-archer">&#xe60a;</span>TypeScript/ES6</span>
+    
+        <span class="sidebar-category-name" data-categories="chrome"><span class="iconfont-archer">&#xe60a;</span>chrome</span>
     
         <span class="sidebar-category-name" data-categories="css"><span class="iconfont-archer">&#xe60a;</span>css</span>
     
